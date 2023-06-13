@@ -1,0 +1,22 @@
+<div class="login_window_field_cont">
+  <div class="login_window_field_icon_cont">
+    <img
+      class="login_window_field_icon"
+      [src]="loginFieldIconSrc"
+      alt="Login field icon"
+      [ngClass]="{ login_window_field_icon_effect: loginFieldState }"
+    />
+  </div>
+  <div class="login_window_field_container">
+    <input
+      class="login_window_field"
+      [type]="loginFieldType"
+      [placeholder]="loginFieldPlaceholder"
+      (focus)="loginFieldFocused()"
+      (blur)="loginFieldBlured()"
+      (input)="handleUserEventLogin($event)"
+      [ngClass]="{ login_window_field_pass: loginFieldType == 'password' }"
+      [value]="loginFieldValue"
+    />
+  </div>
+</div>
