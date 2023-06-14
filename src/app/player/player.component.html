@@ -1,0 +1,15 @@
+<div class="player_cont">
+  <div class="player_name">
+    <app-login-field
+      loginFieldPlaceholder="Player Name"
+      loginFieldIconSrc="assets/imgs/player.svg"
+      loginFieldType="text"
+      [loginFieldWidth]="15"
+    ></app-login-field>
+  </div>
+  <select class="player_symbol_selector">
+    <option [value]="symbol" selected disabled hidden>{{ symbol }}</option>
+    <option *ngFor="let item of symbolPool" [value]="item">{{ item }}</option>
+  </select>
+  <input class="player_color_selector" type="color" [value]="color" />
+</div>

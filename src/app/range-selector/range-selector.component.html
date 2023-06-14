@@ -1,0 +1,16 @@
+<div class="settings_range_selector_cont">
+  <div class="settings_range_selector_text_cont">
+    <div class="settings_range_selector_title">Map size</div>
+    <div class="settings_range_selector_size">{{ sliderValue }}</div>
+  </div>
+  <input
+    class="settings_range_selector"
+    type="range"
+    [min]="sliderMinValue"
+    [max]="sliderMaxValue"
+    [step]="sliderStep"
+    [value]="sliderValue"
+    (input)="handleRangeSlider($event)"
+    [ngStyle]="getSliderStyle()"
+  />
+</div>

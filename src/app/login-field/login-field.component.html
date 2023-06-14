@@ -17,6 +17,7 @@
       (input)="handleUserEventLogin($event)"
       [ngClass]="{ login_window_field_pass: loginFieldType == 'password' }"
       [value]="loginFieldValue"
+      [ngStyle]="setLoginFieldWidth()"
     />
   </div>
 </div>

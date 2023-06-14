@@ -1,0 +1,41 @@
+@import "../../assets/styles/colorVariables.scss";
+
+.player {
+  &_cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    gap: 1rem;
+    background-color: $loginFieldBg;
+    margin-bottom: 1rem;
+    padding-right: 0.1rem;
+  }
+
+  &_name {
+    flex: auto;
+    height: 100%;
+    border: none;
+    outline: none;
+    background-color: $loginFieldBg;
+    font-size: 1.2rem;
+  }
+
+  &_symbol_selector {
+    flex: 0.6;
+    height: 100%;
+    background-color: $loginFieldBg;
+    border: none;
+    outline: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  &_color_selector {
+    flex: 1;
+    height: 100%;
+    background-color: $loginFieldBg;
+    border: none;
+    outline: none;
+  }
+}

@@ -10,6 +10,13 @@ export class LoginFieldComponent {
   @Input() loginFieldPlaceholder: string = '';
   @Input() loginFieldIconSrc: string = '';
   @Input() loginFieldType: string = '';
+  @Input() loginFieldWidth: number = 0;
+
+  setLoginFieldWidth() {
+    return {
+      width: `${this.loginFieldWidth}rem`,
+    };
+  }
 
   // outputs
   @Output() userEventLogin = new EventEmitter<string>();

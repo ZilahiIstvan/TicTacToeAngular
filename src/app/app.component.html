@@ -1,35 +1,83 @@
 <div class="login_page_cont">
-  <div class="login_cont">
+  <div class="login_cont" *ngIf="appState !== appStateEnum.SettingsScreen">
+    <!--STARTING SCREEN-->
     <div class="login_title_cont">
       <div class="login_title">TIC TAC TOE</div>
     </div>
     <div class="login_subtitle">With Friends</div>
-
-    <div *ngIf="!startBtnFlag" class="login_btn">
+    <div *ngIf="appState === appStateEnum.StartScreen" class="login_btn_start">
       <app-button
         (click)="handleStartBtnClicked()"
         btnText="START"
       ></app-button>
     </div>
 
-    <div *ngIf="startBtnFlag" class="login_window_cont">
+    <!--LOGIN SCREEN-->
+    <div
+      *ngIf="
+        appState === appStateEnum.LoginScreen ||
+        appState === appStateEnum.LoginWrongDataAttempt
+      "
+      class="login_window_cont"
+    >
       <app-login-field
         loginFieldPlaceholder="Username"
         loginFieldIconSrc="assets/imgs/username.svg"
         loginFieldType="text"
         (userEventLogin)="handleUserProvidedUsername($event)"
+        [loginFieldWidth]="20"
       ></app-login-field>
       <app-login-field
         loginFieldPlaceholder="Password"
         loginFieldIconSrc="assets/imgs/password.svg"
         loginFieldType="password"
         (userEventLogin)="handleUserProvidedPassword($event)"
+        [loginFieldWidth]="20"
       ></app-login-field>
+      <div
+        class="login_window_alert_msg"
+        [ngClass]="{
+          login_window_alert_msg_show:
+            appState === appStateEnum.LoginWrongDataAttempt
+        }"
+      >
+        Wrong login data provided. Please try again!
+      </div>
       <app-button
         (click)="handleLoginBtnClicked()"
         btnText="LOGIN"
         class="login_btn"
       ></app-button>
+    </div>
+  </div>
+  <!--SETTINGS SCREEN-->
+  <div class="settings_cont" *ngIf="appState === appStateEnum.SettingsScreen">
+    <div class="settings_title">SETTINGS</div>
+    <div class="settings_player_cont">
+      <div class="settings_slider">
+        <app-range-selector></app-range-selector>
+      </div>
+      <div class="settings_player">Setting players</div>
+      <div class="settings_players_cont">
+        <app-player
+          *ngFor="let item of storePlayers"
+          [symbol]="item.playerSymbol"
+          [color]="item.playerColor"
+          [symbolPool]="symbolPool"
+        ></app-player>
+      </div>
+      <app-new-player
+        addNewItemText="Add New Player"
+        addNewItemSrc="assets/imgs/add.svg"
+        [storePlayers]="storePlayers"
+        [symbolPool]="symbolPool"
+        [ngClass]="{
+          app_new_player_diplay: storePlayers.length >= maxPlayerCnt
+        }"
+      ></app-new-player>
+    </div>
+    <div class="settings_btn">
+      <app-button btnText="START GAME"></app-button>
     </div>
   </div>
 </div>
