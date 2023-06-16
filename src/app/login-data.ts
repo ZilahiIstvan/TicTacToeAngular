@@ -6,6 +6,6 @@ export const loginData: { user: string; pass: string } = {
 */
 
 export const loginData: { user: string; pass: string } = {
-  user: 'szia',
-  pass: 'szia',
+  user: '',
+  pass: '',
 };

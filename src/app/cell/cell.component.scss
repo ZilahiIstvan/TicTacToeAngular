@@ -1,0 +1,10 @@
+.board_cell_cont {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: aliceblue;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+}

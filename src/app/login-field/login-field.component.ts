@@ -12,12 +12,6 @@ export class LoginFieldComponent {
   @Input() loginFieldType: string = '';
   @Input() loginFieldWidth: number = 0;
 
-  setLoginFieldWidth() {
-    return {
-      width: `${this.loginFieldWidth}rem`,
-    };
-  }
-
   // outputs
   @Output() userEventLogin = new EventEmitter<string>();
 
@@ -25,22 +19,29 @@ export class LoginFieldComponent {
   loginFieldState: boolean = false; // false: blured, true: focused
   loginFieldValue: string = ''; // store field value string
 
+  public setLoginFieldWidth() {
+    return {
+      width: `${this.loginFieldWidth}rem`,
+    };
+  }
+
   // used to set the focused state
-  loginFieldFocused = (): void => {
+  public loginFieldFocused = (): void => {
     this.loginFieldState = true;
   };
 
   // used to set the blured state
-  loginFieldBlured = (): void => {
+  public loginFieldBlured = (): void => {
     this.loginFieldState = false;
   };
 
-  resetLoginFieldValue() {
+  // used to set the login field to empty character
+  public resetLoginFieldValue() {
     this.loginFieldValue = '';
   }
 
   // used to send back the user provided input data to the parent component
-  handleUserEventLogin(event: any): void {
+  public handleUserEventLogin(event: any): void {
     this.loginFieldValue = event.target.value;
     this.userEventLogin.emit(this.loginFieldValue);
   }

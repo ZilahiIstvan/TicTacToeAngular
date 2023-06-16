@@ -8,6 +8,8 @@ import { ButtonComponent } from './button/button.component';
 import { RangeSelectorComponent } from './range-selector/range-selector.component';
 import { NewPlayerComponent } from './new-player/new-player.component';
 import { PlayerComponent } from './player/player.component';
+import { BoardComponent } from './board/board.component';
+import { CellComponent } from './cell/cell.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { PlayerComponent } from './player/player.component';
     ButtonComponent,
     RangeSelectorComponent,
     NewPlayerComponent,
-    PlayerComponent
+    PlayerComponent,
+    BoardComponent,
+    CellComponent
   ],
   imports: [
     BrowserModule,

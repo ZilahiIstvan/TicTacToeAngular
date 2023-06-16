@@ -6,10 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./new-player.component.scss'],
 })
 export class NewPlayerComponent {
-  @Input() addNewItemText = '';
-  @Input() addNewItemSrc = '';
+  @Input() addNewItemText: string = '';
+  @Input() addNewItemSrc: string = '';
   @Input() symbolPool: string[] = [];
   @Input() storePlayers: {
+    id: number;
     playerName: string;
     playerSymbol: string;
     playerColor: string;
@@ -26,8 +27,9 @@ export class NewPlayerComponent {
   }
 
   // used to create a new default player
-  handleNewPlayerClick(): void {
+  public handleNewPlayerClick(): void {
     this.storePlayers.push({
+      id: this.storePlayers.length,
       playerName: '',
       playerSymbol: this.pickRandomSymbol(), // generate random symbol
       playerColor: this.pickRandomColor(), // generate random color

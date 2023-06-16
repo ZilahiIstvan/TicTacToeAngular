@@ -1,5 +1,13 @@
 <div class="login_page_cont">
-  <div class="login_cont" *ngIf="appState !== appStateEnum.SettingsScreen">
+  <!--STARTING AND LOGIN SCREEN-->
+  <div
+    class="login_cont"
+    *ngIf="
+      appState === appStateEnum.LoginScreen ||
+      appState === appStateEnum.LoginWrongDataAttempt ||
+      appState === appStateEnum.StartScreen
+    "
+  >
     <!--STARTING SCREEN-->
     <div class="login_title_cont">
       <div class="login_title">TIC TAC TOE</div>
@@ -7,7 +15,7 @@
     <div class="login_subtitle">With Friends</div>
     <div *ngIf="appState === appStateEnum.StartScreen" class="login_btn_start">
       <app-button
-        (click)="handleStartBtnClicked()"
+        (click)="changeAppState(appStateEnum.LoginScreen)"
         btnText="START"
       ></app-button>
     </div>
@@ -50,12 +58,15 @@
       ></app-button>
     </div>
   </div>
+
   <!--SETTINGS SCREEN-->
   <div class="settings_cont" *ngIf="appState === appStateEnum.SettingsScreen">
     <div class="settings_title">SETTINGS</div>
     <div class="settings_player_cont">
       <div class="settings_slider">
-        <app-range-selector></app-range-selector>
+        <app-range-selector
+          (setBoardSize)="setBoardSize($event)"
+        ></app-range-selector>
       </div>
       <div class="settings_player">Setting players</div>
       <div class="settings_players_cont">
@@ -64,6 +75,9 @@
           [symbol]="item.playerSymbol"
           [color]="item.playerColor"
           [symbolPool]="symbolPool"
+          [id]="item.id"
+          (storePlayersSymbol)="setStorePlayersAttributes($event)"
+          (storePlayersColor)="setStorePlayersAttributes($event)"
         ></app-player>
       </div>
       <app-new-player
@@ -76,8 +90,27 @@
         }"
       ></app-new-player>
     </div>
-    <div class="settings_btn">
-      <app-button btnText="START GAME"></app-button>
-    </div>
+    <app-button
+      btnText="START GAME"
+      (click)="handleStartGameBtnClick(appStateEnum.GameScreen)"
+      class="settings_btn"
+    ></app-button>
+  </div>
+
+  <!--GAME SCREEN-->
+  <div
+    *ngIf="
+      appState === appStateEnum.GameScreen ||
+      appState === appStateEnum.WinnerScreen
+    "
+    class="game_screen"
+  >
+    <app-board
+      [boardSize]="boardSize"
+      [playerSymbols]="playerSymbols"
+      [playerColors]="playerColors"
+      (appState)="changeAppState($event)"
+    ></app-board>
+    <div *ngIf="appState === appStateEnum.WinnerScreen">Winner</div>
   </div>
 </div>

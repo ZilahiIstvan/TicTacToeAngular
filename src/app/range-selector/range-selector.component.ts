@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-range-selector',
@@ -11,7 +11,9 @@ export class RangeSelectorComponent {
   @Input() sliderValue: number = this.sliderMinValue;
   @Input() sliderStep: number = 1;
 
-  getSliderStyle() {
+  @Output() setBoardSize = new EventEmitter<number>();
+
+  public setSliderStyle() {
     return {
       backgroundImage: `linear-gradient(to right, #31c4be ${
         ((this.sliderValue - this.sliderMinValue) / this.sliderMinValue) * 100
@@ -19,8 +21,9 @@ export class RangeSelectorComponent {
     };
   }
 
-  handleRangeSlider(event: any) {
-    console.log(event.target.value);
+  public handleRangeSlider(event: any) {
     this.sliderValue = event.target.value;
+    this.setBoardSize.emit(event.target.value);
+    console.log(this.sliderValue);
   }
 }

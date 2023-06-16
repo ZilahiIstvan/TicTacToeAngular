@@ -1,0 +1,15 @@
+<div class="game_board_cont" [ngStyle]="setGameBoardStyle()">
+  <ng-container *ngFor="let row of board">
+    <app-cell
+      *ngFor="let item of row"
+      [updatePlayerIdxFunc]="updatePlayerIdx"
+      [cellText]="item.symbol"
+      [cellIdx]="item.id"
+      [cellClicked]="item.clicked"
+    ></app-cell>
+  </ng-container>
+  <app-button
+    btnText="RESET"
+    (click)="setBoardAttributes(boardStateEnum.ResetBoard)"
+  ></app-button>
+</div>

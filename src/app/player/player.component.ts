@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-player',
@@ -9,4 +9,16 @@ export class PlayerComponent {
   @Input() symbolPool: string[] = [];
   @Input() symbol: string = '';
   @Input() color: string = '#ffffff';
+  @Input() id: number = -1;
+
+  @Output() storePlayersSymbol = new EventEmitter<[number, string, string]>();
+  @Output() storePlayersColor = new EventEmitter<[number, string, string]>();
+
+  handlePlayerSymbolSelector(event: any) {
+    this.storePlayersSymbol.emit([this.id, event.target.value, 'playerSymbol']);
+  }
+
+  handlePlayerColorSelector(event: any) {
+    this.storePlayersColor.emit([this.id, event.target.value, 'playerColor']);
+  }
 }
