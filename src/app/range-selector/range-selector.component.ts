@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { rangeSelectorDefBg, rangeSelectorActiveBg } from '../app-styles';
 
 @Component({
   selector: 'app-range-selector',
@@ -15,9 +16,9 @@ export class RangeSelectorComponent {
 
   public setSliderStyle() {
     return {
-      backgroundImage: `linear-gradient(to right, #31c4be ${
+      backgroundImage: `linear-gradient(to right, ${rangeSelectorActiveBg} ${
         ((this.sliderValue - this.sliderMinValue) / this.sliderMinValue) * 100
-      }%, #354953 0%)`,
+      }%, ${rangeSelectorDefBg} 0%)`,
     };
   }
 

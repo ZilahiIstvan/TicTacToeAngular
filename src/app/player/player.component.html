@@ -5,6 +5,7 @@
       loginFieldIconSrc="assets/imgs/player.svg"
       loginFieldType="text"
       [loginFieldWidth]="15"
+      (userEventLogin)="handlePlayerNameSelector($event)"
     ></app-login-field>
   </div>
   <select

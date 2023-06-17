@@ -2,6 +2,7 @@ import { Component, ViewChildren, QueryList } from '@angular/core';
 import { loginData } from './login-data';
 import { AppStateEnum } from './app-state-enums';
 import { LoginFieldComponent } from './login-field/login-field.component';
+import { player1DefColor, player2DefColor } from './app-styles';
 
 @Component({
   selector: 'app-root',
@@ -26,12 +27,18 @@ export class AppComponent {
     playerSymbol: string;
     playerColor: string;
   }[] = [
-    { id: 0, playerName: '', playerSymbol: 'X', playerColor: '#31c4be' },
-    { id: 1, playerName: '', playerSymbol: 'O', playerColor: '#f4e056' },
+    {
+      id: 0,
+      playerName: '',
+      playerSymbol: 'X',
+      playerColor: player1DefColor,
+    },
+    { id: 1, playerName: '', playerSymbol: 'O', playerColor: player2DefColor },
   ]; // stores the players' data
 
   playerSymbols: string[] = [];
   playerColors: string[] = [];
+  playerNames: string[] = [];
   boardSize: number = 5;
 
   // used to switch the app state based on the parameter
@@ -82,6 +89,7 @@ export class AppComponent {
     this.storePlayers.forEach((element) => {
       this.playerSymbols.push(element.playerSymbol);
       this.playerColors.push(element.playerColor);
+      this.playerNames.push(element.playerName);
     });
   }
 
@@ -93,13 +101,16 @@ export class AppComponent {
         let itemObj = item;
         if (values[2] === 'playerSymbol') {
           itemObj['playerSymbol'] = values[1]; // change playerSymbol
-        } else {
+        } else if (values[2] === 'playerColor') {
           itemObj['playerColor'] = values[1]; // change playerColor
+        } else if (values[2] === 'playerName') {
+          itemObj['playerName'] = values[1]; // change playerName
         }
         return itemObj;
       }
       return item;
     });
+    console.log(this.storePlayers);
   }
 
   public setBoardSize(size: number) {

@@ -6,10 +6,11 @@
       [cellText]="item.symbol"
       [cellIdx]="item.id"
       [cellClicked]="item.clicked"
+      [cellBgColor]="item.cellBgColor"
     ></app-cell>
   </ng-container>
   <app-button
-    btnText="RESET"
+    btnText="RESTART"
     (click)="setBoardAttributes(boardStateEnum.ResetBoard)"
   ></app-button>
 </div>

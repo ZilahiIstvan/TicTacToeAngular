@@ -1,5 +1,14 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import { AppStateEnum, BoardStateEnum } from '../app-state-enums';
+import { CellComponent } from '../cell/cell.component';
+import { cellBgColor } from '../app-styles';
 
 @Component({
   selector: 'app-board',
@@ -7,6 +16,8 @@ import { AppStateEnum, BoardStateEnum } from '../app-state-enums';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent {
+  @ViewChildren(CellComponent)
+  cellComps: QueryList<CellComponent> = new QueryList<CellComponent>(); // query all instances of the loginFieldComponent components
   // inputs
   @Input() boardSize: number = 0;
   @Input()
@@ -22,6 +33,7 @@ export class BoardComponent {
     symbol: string;
     color: string;
     clicked: boolean;
+    cellBgColor: string;
   }[][] = []; // create empty array
   private playerIdx: number = 0; // player symbol index
   private winnerSymbolsCnt: number = 5; // number of the winner symbols
@@ -55,12 +67,14 @@ export class BoardComponent {
           symbol: '',
           color: '',
           clicked: false,
+          cellBgColor: '',
         };
         idx += 1;
       }
     }
   }
 
+  // TODO: REWORK THIS
   public setBoardAttributes(boardState: BoardStateEnum) {
     for (let i = 0; i < this.boardSize; i++) {
       for (let j = 0; j < this.boardSize; j++) {
@@ -69,7 +83,18 @@ export class BoardComponent {
         } else if (boardState === BoardStateEnum.ResetBoard) {
           this.board[i][j].clicked = false;
           this.board[i][j].symbol = '';
-          console.log(this.board);
+          this.board[i][j].cellBgColor = '';
+          //console.log(this.board);
+          this.cellComps.forEach((cell) => {
+            cell.cellClicked = false;
+            cell.cellText = '';
+            cell.cellBgColor = '';
+          });
+        } else if (boardState === BoardStateEnum.ResetPrevStep) {
+          this.board[i][j].cellBgColor = '';
+          this.cellComps.forEach((cell) => {
+            cell.cellBgColor = '';
+          });
         }
       }
     }
@@ -154,6 +179,9 @@ export class BoardComponent {
     let col = cellId % this.boardSize;
     this.board[row][col].symbol = symbol;
     this.board[row][col].color = color;
+
+    this.setBoardAttributes(BoardStateEnum.ResetPrevStep);
+    this.board[row][col].cellBgColor = cellBgColor;
 
     this.checkWinner(cellId);
 

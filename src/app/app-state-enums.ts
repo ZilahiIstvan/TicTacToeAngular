@@ -14,4 +14,5 @@ export enum BoardStateEnum {
   NoAction,
   LockBoard,
   ResetBoard,
+  ResetPrevStep,
 }

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { maxColorVal } from '../app-styles';
 
 @Component({
   selector: 'app-new-player',
@@ -23,7 +24,7 @@ export class NewPlayerComponent {
 
   // used to generate a random hexa color
   private pickRandomColor(): string {
-    return '#' + Math.floor(Math.random() * 0xffffff).toString(16); // generate random color (convertToHex(round(maxVal * randomNum)))
+    return '#' + Math.floor(Math.random() * maxColorVal).toString(16); // generate random color (convertToHex(round(maxVal * randomNum)))
   }
 
   // used to create a new default player
