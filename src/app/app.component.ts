@@ -3,6 +3,7 @@ import { loginData } from './login-data';
 import { AppStateEnum } from './app-state-enums';
 import { LoginFieldComponent } from './login-field/login-field.component';
 import { player1DefColor, player2DefColor } from './app-styles';
+import { Player } from './interfaces';
 
 @Component({
   selector: 'app-root',
@@ -21,25 +22,35 @@ export class AppComponent {
   userProvidedPassword: string = ''; // stores the paswword from the user
   symbolPool: string[] = ['X', 'O', 'A', 'B']; // stores the possible symbols
   maxPlayerCnt: number = 6; // determines the maximum number of players
-  storePlayers: {
-    id: number;
-    playerName: string;
-    playerSymbol: string;
-    playerColor: string;
-  }[] = [
+  storePlayers: Player[] = [
     {
       id: 0,
       playerName: '',
       playerSymbol: 'X',
       playerColor: player1DefColor,
+      playerScore: 0,
     },
-    { id: 1, playerName: '', playerSymbol: 'O', playerColor: player2DefColor },
+    {
+      id: 1,
+      playerName: '',
+      playerSymbol: 'O',
+      playerColor: player2DefColor,
+      playerScore: 0,
+    },
   ]; // stores the players' data
 
   playerSymbols: string[] = [];
   playerColors: string[] = [];
-  playerNames: string[] = [];
   boardSize: number = 5;
+
+  // used to sort the players array based on the players' score
+  private sortPlayersBasedOnPoints = () => {
+    this.storePlayers = this.storePlayers.sort((el, el1) => {
+      if (el.playerScore > el1.playerScore) return -1;
+      else if (el.playerScore < el1.playerScore) return 1;
+      return 0;
+    });
+  };
 
   // used to switch the app state based on the parameter
   public changeAppState(state: AppStateEnum): void {
@@ -73,6 +84,7 @@ export class AppComponent {
     });
   }
 
+  // used to check the players' data and start the game
   public handleStartGameBtnClick(state: AppStateEnum): void {
     let arrSize: number = this.storePlayers.length;
 
@@ -89,12 +101,11 @@ export class AppComponent {
     this.storePlayers.forEach((element) => {
       this.playerSymbols.push(element.playerSymbol);
       this.playerColors.push(element.playerColor);
-      this.playerNames.push(element.playerName);
     });
   }
 
   // used to handle the player symbol and color attributes change
-  public setStorePlayersAttributes(values: [number, string, string]) {
+  public setStorePlayersAttributes(values: [number, string, string]): void {
     // loop trough store players and modify the player which selected by id
     this.storePlayers.map((item) => {
       if (item.id === values[0]) {
@@ -110,10 +121,25 @@ export class AppComponent {
       }
       return item;
     });
-    console.log(this.storePlayers);
   }
 
-  public setBoardSize(size: number) {
+  // used to set the board size
+  public setBoardSize(size: number): void {
     this.boardSize = size;
+  }
+
+  // used to increase the winner's point and sort the players array
+  public setWinnerPoint(values: [string, string]): void {
+    this.storePlayers.forEach((item) => {
+      // find winner based on symbol and color
+      if (item.playerSymbol === values[0] && item.playerColor == values[1]) {
+        let itemObj = item;
+        itemObj.playerScore += 1; // increase winner point
+        return itemObj;
+      } else {
+        return item;
+      }
+    });
+    this.sortPlayersBasedOnPoints(); // sort array for displaying it in the right order
   }
 }

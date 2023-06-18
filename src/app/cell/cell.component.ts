@@ -15,17 +15,19 @@ export class CellComponent {
     return ['', ''];
   }; // input func for updating the player index
 
-  public setBoardCellStyle() {
-    return {
-      color: `${this.cellColor}`,
-      backgroundColor: `${this.cellBgColor}`,
-    };
-  }
-
   handleCellClick() {
     if (!this.cellClicked) {
       this.cellClicked = true;
       [this.cellText, this.cellColor] = this.updatePlayerIdxFunc(this.cellIdx);
     }
+  }
+
+  // STYLES
+
+  public setBoardCellStyle() {
+    return {
+      color: `${this.cellColor}`,
+      backgroundColor: `${this.cellBgColor}`,
+    };
   }
 }

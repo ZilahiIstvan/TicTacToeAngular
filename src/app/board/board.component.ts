@@ -9,6 +9,7 @@ import {
 import { AppStateEnum, BoardStateEnum } from '../app-state-enums';
 import { CellComponent } from '../cell/cell.component';
 import { cellBgColor } from '../app-styles';
+import { Board } from '../interfaces';
 
 @Component({
   selector: 'app-board',
@@ -26,15 +27,10 @@ export class BoardComponent {
   playerColors: string[] = [];
 
   @Output() appState = new EventEmitter<AppStateEnum>();
+  @Output() winnerFound = new EventEmitter<[string, string]>();
 
   // vairables
-  public board: {
-    id: number;
-    symbol: string;
-    color: string;
-    clicked: boolean;
-    cellBgColor: string;
-  }[][] = []; // create empty array
+  public board: Board[][] = []; // create empty array
   private playerIdx: number = 0; // player symbol index
   private winnerSymbolsCnt: number = 5; // number of the winner symbols
   private directions: number[][] = [
@@ -50,9 +46,12 @@ export class BoardComponent {
     [1, -1],
   ];
   boardStateEnum = BoardStateEnum; // define enum
+  nextPlayer: { symbol: string; color: string } = { symbol: '', color: '' };
 
   ngOnInit() {
     this.fillBoardArr(); // fill array with init values
+    this.nextPlayer.color = this.playerColors[0];
+    this.nextPlayer.symbol = this.playerSymbols[0];
   }
 
   // used to create an empty array
@@ -158,15 +157,6 @@ export class BoardComponent {
     return false;
   }
 
-  // used to set the grid template dynamically based on the board size
-  public setGameBoardStyle() {
-    return {
-      gridTemplateColumns: `repeat(${this.boardSize}, 3rem)`,
-      gridTemplateRows: `repeat(${this.boardSize}, 3rem)`,
-      fontSize: '2rem',
-    };
-  }
-
   public updatePlayerIdx = (cellId: number): [string, string] => {
     if (this.playerIdx === this.playerSymbols.length) {
       this.playerIdx = 0; // reset idx
@@ -174,6 +164,11 @@ export class BoardComponent {
     let symbol = this.playerSymbols[this.playerIdx];
     let color = this.playerColors[this.playerIdx];
     this.playerIdx += 1;
+
+    let nextIdx =
+      this.playerIdx === this.playerSymbols.length ? 0 : this.playerIdx;
+    this.nextPlayer.color = this.playerColors[nextIdx];
+    this.nextPlayer.symbol = this.playerSymbols[nextIdx]; // store next symbol
 
     let row = Math.floor(cellId / this.boardSize);
     let col = cellId % this.boardSize;
@@ -183,8 +178,29 @@ export class BoardComponent {
     this.setBoardAttributes(BoardStateEnum.ResetPrevStep);
     this.board[row][col].cellBgColor = cellBgColor;
 
-    this.checkWinner(cellId);
+    if (this.checkWinner(cellId)) {
+      // winner found
+      this.winnerFound.emit([symbol, color]); // mrk winner based on it's symbol and color
+    }
 
     return [symbol, color];
   };
+
+  // STYLES
+
+  // used to set the grid template dynamically based on the board size
+  public setGameBoardStyle() {
+    return {
+      gridTemplateColumns: `repeat(${this.boardSize}, 3rem)`,
+      gridTemplateRows: `repeat(${this.boardSize}, 3rem)`,
+      fontSize: '2rem',
+    };
+  }
+
+  public setNextPlayerStyle() {
+    console.log(this.nextPlayer.color);
+    return {
+      color: `${this.nextPlayer.color}`,
+    };
+  }
 }

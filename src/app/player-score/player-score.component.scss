@@ -1,0 +1,27 @@
+.leaderboard {
+    background-color: red;
+    &_cont {
+
+    }
+
+    &_title_text {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;        
+    }
+
+    &_grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+    }
+
+    &_first_row_cont,
+    &_player_cont {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+

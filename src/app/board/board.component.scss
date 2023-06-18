@@ -1,6 +1,25 @@
 .game_board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
   &_cont {
     display: grid;
     gap: 1rem;
+  }
+
+  &_next_player {
+    &_cont {
+      display: flex;
+      gap: 1rem;
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      font-family: bold;
+    }
+  }
+
+  &_btn {
+    margin-top: 2rem;
   }
 }

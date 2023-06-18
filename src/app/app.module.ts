@@ -10,6 +10,7 @@ import { NewPlayerComponent } from './new-player/new-player.component';
 import { PlayerComponent } from './player/player.component';
 import { BoardComponent } from './board/board.component';
 import { CellComponent } from './cell/cell.component';
+import { PlayerScoreComponent } from './player-score/player-score.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CellComponent } from './cell/cell.component';
     NewPlayerComponent,
     PlayerComponent,
     BoardComponent,
-    CellComponent
+    CellComponent,
+    PlayerScoreComponent
   ],
   imports: [
     BrowserModule,

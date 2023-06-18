@@ -1,16 +1,25 @@
-<div class="game_board_cont" [ngStyle]="setGameBoardStyle()">
-  <ng-container *ngFor="let row of board">
-    <app-cell
-      *ngFor="let item of row"
-      [updatePlayerIdxFunc]="updatePlayerIdx"
-      [cellText]="item.symbol"
-      [cellIdx]="item.id"
-      [cellClicked]="item.clicked"
-      [cellBgColor]="item.cellBgColor"
-    ></app-cell>
-  </ng-container>
+<div class="game_board">
+  <div class="game_board_next_player_cont">
+    <div class="game_board_next_player">NEXT PLAYER:</div>
+    <p [ngStyle]="setNextPlayerStyle()">{{nextPlayer.symbol}}</p>
+  </div>
+
+  <div class="game_board_cont" [ngStyle]="setGameBoardStyle()">
+    <ng-container *ngFor="let row of board">
+      <app-cell
+        *ngFor="let item of row"
+        [updatePlayerIdxFunc]="updatePlayerIdx"
+        [cellText]="item.symbol"
+        [cellIdx]="item.id"
+        [cellClicked]="item.clicked"
+        [cellBgColor]="item.cellBgColor"
+      ></app-cell>
+    </ng-container>
+  </div>
+
   <app-button
     btnText="RESTART"
     (click)="setBoardAttributes(boardStateEnum.ResetBoard)"
+    class="game_board_btn"
   ></app-button>
 </div>

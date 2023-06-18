@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { maxColorVal } from '../app-styles';
+import { Player } from '../interfaces';
 
 @Component({
   selector: 'app-new-player',
@@ -10,12 +11,7 @@ export class NewPlayerComponent {
   @Input() addNewItemText: string = '';
   @Input() addNewItemSrc: string = '';
   @Input() symbolPool: string[] = [];
-  @Input() storePlayers: {
-    id: number;
-    playerName: string;
-    playerSymbol: string;
-    playerColor: string;
-  }[] = [];
+  @Input() storePlayers: Player[] = [];
 
   // used to pick a random symbol from a defined pool
   private pickRandomSymbol(): string {
@@ -34,6 +30,7 @@ export class NewPlayerComponent {
       playerName: '',
       playerSymbol: this.pickRandomSymbol(), // generate random symbol
       playerColor: this.pickRandomColor(), // generate random color
+      playerScore: 0,
     });
     console.log('players: ', this.storePlayers);
   }

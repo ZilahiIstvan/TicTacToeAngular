@@ -106,12 +106,16 @@
     "
     class="game_screen"
   >
-    <app-board
+    <div class="game_screen_cont">
+      <app-board
       [boardSize]="boardSize"
       [playerSymbols]="playerSymbols"
       [playerColors]="playerColors"
       (appState)="changeAppState($event)"
+      (winnerFound)="setWinnerPoint($event)"
     ></app-board>
+    <app-player-score [storePlayers]="storePlayers"></app-player-score>
+    </div>
     <div *ngIf="appState === appStateEnum.WinnerScreen">Winner</div>
   </div>
 </div>
