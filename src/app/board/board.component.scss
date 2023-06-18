@@ -1,3 +1,5 @@
+@import "../../assets/styles/colorVariables.scss";
+
 .game_board {
   display: flex;
   justify-content: center;
@@ -7,15 +9,31 @@
   &_cont {
     display: grid;
     gap: 1rem;
+    border: 3px solid $secondaryGreenish;
+    padding: 1rem;
+    //border-top-left-radius: 1rem;
+    //border-bottom-right-radius: 1rem;
+    border-radius: 1rem;
   }
 
   &_next_player {
     &_cont {
       display: flex;
+      align-items: center;
+      justify-content: center;
+
       gap: 1rem;
       font-size: 1.3rem;
       margin-bottom: 2rem;
       font-family: bold;
+      background-color: $loginFieldBg;
+      //border-radius: 10rem;
+      //border-top-left-radius: 1rem;
+      //border-bottom-right-radius: 1rem;
+      border-radius: 1rem;
+      width: 100%;
+      padding: 0.5rem 0;
+      border: 3px solid $secondaryGreenish;
     }
   }
 

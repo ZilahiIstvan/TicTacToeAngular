@@ -1,7 +1,9 @@
 .leaderboard {
-    background-color: red;
     &_cont {
-
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     &_title_text {
@@ -13,14 +15,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         justify-items: center;
-    }
-
-    &_first_row_cont,
-    &_player_cont {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
+        gap: 1rem
     }
 }
 

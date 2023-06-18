@@ -1,7 +1,8 @@
-import { Component, ViewChildren, QueryList } from '@angular/core';
+import { Component, ViewChildren, QueryList, ViewChild } from '@angular/core';
 import { loginData } from './login-data';
-import { AppStateEnum } from './app-state-enums';
+import { AppStateEnum, BoardStateEnum } from './app-state-enums';
 import { LoginFieldComponent } from './login-field/login-field.component';
+import { BoardComponent } from './board/board.component';
 import { player1DefColor, player2DefColor } from './app-styles';
 import { Player } from './interfaces';
 
@@ -14,6 +15,8 @@ export class AppComponent {
   @ViewChildren(LoginFieldComponent)
   loginFieldComp: QueryList<LoginFieldComponent> =
     new QueryList<LoginFieldComponent>(); // query all instances of the loginFieldComponent components
+  @ViewChildren(BoardComponent) boardComp: QueryList<BoardComponent> =
+    new QueryList<BoardComponent>();
 
   appStateEnum = AppStateEnum; // define enum
   loginData: { user: string; pass: string } = loginData; // store login data (username, password)
@@ -42,6 +45,7 @@ export class AppComponent {
   playerSymbols: string[] = [];
   playerColors: string[] = [];
   boardSize: number = 5;
+  winnerName: string = '';
 
   // used to sort the players array based on the players' score
   private sortPlayersBasedOnPoints = () => {
@@ -135,11 +139,26 @@ export class AppComponent {
       if (item.playerSymbol === values[0] && item.playerColor == values[1]) {
         let itemObj = item;
         itemObj.playerScore += 1; // increase winner point
+        this.winnerName = itemObj.playerName; // store winner name
         return itemObj;
       } else {
         return item;
       }
     });
     this.sortPlayersBasedOnPoints(); // sort array for displaying it in the right order
+  }
+
+  public handleRestartBtnClick() {
+    this.boardComp.forEach((item) =>
+      item.setBoardAttributes(BoardStateEnum.ResetBoard)
+    );
+    this.appState = AppStateEnum.GameScreen;
+  }
+
+  public handleQuitBtnClick() {
+    this.boardComp.forEach((item) =>
+      item.setBoardAttributes(BoardStateEnum.ResetBoard)
+    );
+    this.appState = AppStateEnum.StartScreen;
   }
 }

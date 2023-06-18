@@ -9,8 +9,9 @@
     "
   >
     <!--STARTING SCREEN-->
+    <img class="login_logo" src="assets/imgs/logo.png" alt="tic tac toe logo">
     <div class="login_title_cont">
-      <div class="login_title">TIC TAC TOE</div>
+      <span class="login_title">TIC TAC TOE</span>
     </div>
     <div class="login_subtitle">With Friends</div>
     <div *ngIf="appState === appStateEnum.StartScreen" class="login_btn_start">
@@ -106,7 +107,7 @@
     "
     class="game_screen"
   >
-    <div class="game_screen_cont">
+    <div class="game_screen_cont" [ngClass]="{game_screen_cont_fade: appState === appStateEnum.WinnerScreen}">
       <app-board
       [boardSize]="boardSize"
       [playerSymbols]="playerSymbols"
@@ -116,6 +117,19 @@
     ></app-board>
     <app-player-score [storePlayers]="storePlayers"></app-player-score>
     </div>
-    <div *ngIf="appState === appStateEnum.WinnerScreen">Winner</div>
+    <div *ngIf="appState === appStateEnum.WinnerScreen" class="winner_screen">
+      <span class="winner_screen_text">THE WINNER IS</span>
+      <span class="winner_screen_name">{{winnerName}}</span>
+      <div class="winner_screen_btn">
+        <app-button
+        btnText="RESTART"
+        (click)="handleRestartBtnClick()"
+      ></app-button>
+      <app-button
+      btnText="QUIT GAME"
+      (click)="handleQuitBtnClick()"
+    ></app-button>
+      </div>
+    </div>
   </div>
 </div>

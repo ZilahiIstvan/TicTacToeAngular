@@ -74,7 +74,7 @@ export class BoardComponent {
   }
 
   // TODO: REWORK THIS
-  public setBoardAttributes(boardState: BoardStateEnum) {
+  public setBoardAttributes(boardState: BoardStateEnum): void {
     for (let i = 0; i < this.boardSize; i++) {
       for (let j = 0; j < this.boardSize; j++) {
         if (boardState === BoardStateEnum.LockBoard) {
