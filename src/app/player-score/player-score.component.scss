@@ -1,22 +1,40 @@
 .leaderboard {
-    &_cont {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+  &_cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
-    &_title_text {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;        
-    }
+  &_title_text {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+  }
 
-    &_grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        justify-items: center;
-        gap: 1rem
+  &_grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    row-gap: 1rem;
+    column-gap: 1.5rem;
+  }
+
+  &_player {
+    &_place {
+      &_img {
+        width: 2rem;
+      }
     }
+  }
+
+  &_first_row {
+    &_place,
+    &_name,
+    &_point {
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+    }
+  }
 }
-
-

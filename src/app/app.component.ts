@@ -42,11 +42,11 @@ export class AppComponent {
     },
   ]; // stores the players' data
 
-  playerSymbols: string[] = [];
-  playerColors: string[] = [];
-  boardSize: number = 5;
-  winnerName: string = '';
-  errorMsg: string = 'defaultText';
+  playerSymbols: string[] = []; // stores the players' symbols
+  playerColors: string[] = []; // stores the players' colors
+  boardSize: number = 5; // determines the default size of the board
+  winnerName: string = ''; // stores the winner's name
+  errorMsg: string = 'defaultText'; // stores the error message
 
   // used to sort the players array based on the players' score
   private sortPlayersBasedOnPoints = () => {
@@ -109,6 +109,7 @@ export class AppComponent {
     }
 
     if (!errorFound) {
+      // names are correct, check colors
       let uniqueColorsNum: number = new Set(colors).size; // get the number of the unique colors
 
       if (uniqueColorsNum != colors.length) {
@@ -169,6 +170,7 @@ export class AppComponent {
     this.sortPlayersBasedOnPoints(); // sort array for displaying it in the right order
   }
 
+  // used to handle the restart button
   public handleRestartBtnClick(): void {
     this.boardComp.forEach((item) =>
       item.setBoardAttributes(BoardStateEnum.ResetBoard)
@@ -176,6 +178,7 @@ export class AppComponent {
     this.appState = AppStateEnum.GameScreen;
   }
 
+  // used to handle the quit button
   public handleQuitBtnClick(): void {
     this.boardComp.forEach((item) =>
       item.setBoardAttributes(BoardStateEnum.ResetBoard)

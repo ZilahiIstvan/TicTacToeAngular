@@ -1,13 +1,19 @@
 <div class="leaderboard_cont">
-    <div class="leaderboard_title_text">LEADERBOARD</div>
-    <div class="leaderboard_grid">
-        <div class="leaderboard_first_row_place">Place</div>
-        <div class="leaderboard_first_row_name">Name</div>
-        <div class="leaderboard_first_row_point">Point</div>
-        <ng-container *ngFor="let item of storePlayers; let i = index">
-            <div class="leaderboard_player_place">{{i+1}}.</div>
-            <div class="leaderboard_player_name">{{item.playerName}}</div>
-            <div class="leaderboard_player_point">{{item.playerScore}}</div>
-        </ng-container>
-    </div>
+  <div class="leaderboard_title_text">LEADERBOARD</div>
+  <div class="leaderboard_grid">
+    <div class="leaderboard_first_row_place">Place</div>
+    <div class="leaderboard_first_row_name">Name</div>
+    <div class="leaderboard_first_row_point">Point</div>
+    <ng-container *ngFor="let item of storePlayers; let i = index">
+      <div class="leaderboard_player_place" *ngIf="i + 1 > 3">{{ i + 1 }}.</div>
+      <img
+        [src]="'assets/imgs/medal' + (i + 1) + '.png'"
+        alt="medal image"
+        class="leaderboard_player_place_img"
+        *ngIf="i + 1 <= 3"
+      />
+      <div class="leaderboard_player_name">{{ item.playerName }}</div>
+      <div class="leaderboard_player_point">{{ item.playerScore }}</div>
+    </ng-container>
+  </div>
 </div>
