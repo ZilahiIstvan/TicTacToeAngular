@@ -36,7 +36,7 @@ export class LoginFieldComponent {
   };
 
   // used to set the login field to empty character
-  public resetLoginFieldValue() {
+  public resetLoginFieldValue(): void {
     this.loginFieldValue = '';
   }
 

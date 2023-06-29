@@ -46,6 +46,7 @@ export class AppComponent {
   playerColors: string[] = [];
   boardSize: number = 5;
   winnerName: string = '';
+  errorMsg: string = 'defaultText';
 
   // used to sort the players array based on the players' score
   private sortPlayersBasedOnPoints = () => {
@@ -91,21 +92,41 @@ export class AppComponent {
   // used to check the players' data and start the game
   public handleStartGameBtnClick(state: AppStateEnum): void {
     let arrSize: number = this.storePlayers.length;
+    let colors: string[] = [];
+    let errorFound: boolean = false; // indicates if error found or not
 
     for (let i = 0; i < arrSize; i++) {
       // check if player name is empty
-      if (this.storePlayers[i].playerName != '') {
-        // check the players (name, color and symbol is okay)
+      if (this.storePlayers[i].playerName == '') {
+        // check the name of the players
+        this.appState = AppStateEnum.GameStartWrongName;
+        this.errorMsg = `Name hasn't been provided.`;
+        errorFound = true; // name error has been found
+        break;
+      } else {
+        colors.push(this.storePlayers[i].playerColor); // player name is okay, store color
       }
-      this.appState = AppStateEnum.GameStartWrongName;
     }
 
-    // game can be started
-    this.appState = state;
-    this.storePlayers.forEach((element) => {
-      this.playerSymbols.push(element.playerSymbol);
-      this.playerColors.push(element.playerColor);
-    });
+    if (!errorFound) {
+      let uniqueColorsNum: number = new Set(colors).size; // get the number of the unique colors
+
+      if (uniqueColorsNum != colors.length) {
+        // if there is a similar color
+        this.appState = AppStateEnum.GameStartWrongColor;
+        this.errorMsg = 'Colors are similar. Please select another one.';
+        errorFound = true; // color error has been found
+      } else {
+        if (!errorFound) {
+          // game can be started (colors are unique and names are filled out)
+          this.appState = state; // set input state
+          this.storePlayers.forEach((element) => {
+            this.playerSymbols.push(element.playerSymbol);
+            this.playerColors.push(element.playerColor);
+          }); // store symbols and colors
+        }
+      }
+    }
   }
 
   // used to handle the player symbol and color attributes change
@@ -148,14 +169,14 @@ export class AppComponent {
     this.sortPlayersBasedOnPoints(); // sort array for displaying it in the right order
   }
 
-  public handleRestartBtnClick() {
+  public handleRestartBtnClick(): void {
     this.boardComp.forEach((item) =>
       item.setBoardAttributes(BoardStateEnum.ResetBoard)
     );
     this.appState = AppStateEnum.GameScreen;
   }
 
-  public handleQuitBtnClick() {
+  public handleQuitBtnClick(): void {
     this.boardComp.forEach((item) =>
       item.setBoardAttributes(BoardStateEnum.ResetBoard)
     );

@@ -71,13 +71,11 @@
   }
 
   &_btn {
-    margin-top: 0.5rem;
+    //margin-top: 0.5rem;
     &_start {
       margin-top: 2rem;
     }
   }
-
-
 }
 
 .settings {
@@ -86,6 +84,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1rem;
   }
 
   &_title {
@@ -104,10 +103,6 @@
       margin-top: 1rem;
     }
   }
-
-  &_btn {
-    margin-top: 2rem;
-  }
 }
 
 .app_new_player_diplay {
@@ -116,8 +111,8 @@
 
 .game_screen {
   position: absolute;
-  top:50%;
-  left:50%;
+  top: 50%;
+  left: 50%;
 
   transform: translate(-50%, -50%);
 
@@ -168,7 +163,6 @@
     margin-top: 2rem;
   }
 }
-
 
 @keyframes fadeIn {
   0% {

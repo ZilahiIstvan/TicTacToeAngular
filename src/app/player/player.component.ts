@@ -23,7 +23,7 @@ export class PlayerComponent {
     this.storePlayersColor.emit([this.id, event.target.value, 'playerColor']);
   }
 
-  handlePlayerNameSelector(playerName:string) {
+  handlePlayerNameSelector(playerName: string) {
     this.storePlayersName.emit([this.id, playerName, 'playerName']);
   }
 }

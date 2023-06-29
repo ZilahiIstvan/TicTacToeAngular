@@ -9,7 +9,7 @@
     "
   >
     <!--STARTING SCREEN-->
-    <img class="login_logo" src="assets/imgs/logo.png" alt="tic tac toe logo">
+    <img class="login_logo" src="assets/imgs/logo.png" alt="tic tac toe logo" />
     <div class="login_title_cont">
       <span class="login_title">TIC TAC TOE</span>
     </div>
@@ -61,7 +61,14 @@
   </div>
 
   <!--SETTINGS SCREEN-->
-  <div class="settings_cont" *ngIf="appState === appStateEnum.SettingsScreen">
+  <div
+    class="settings_cont"
+    *ngIf="
+      appState === appStateEnum.SettingsScreen ||
+      appState === appStateEnum.GameStartWrongName ||
+      appState === appStateEnum.GameStartWrongColor
+    "
+  >
     <div class="settings_title">SETTINGS</div>
     <div class="settings_player_cont">
       <div class="settings_slider">
@@ -92,10 +99,19 @@
         }"
       ></app-new-player>
     </div>
+    <div
+      class="login_window_alert_msg"
+      [ngClass]="{
+        login_window_alert_msg_show:
+          appState === appStateEnum.GameStartWrongName ||
+          appState === appStateEnum.GameStartWrongColor
+      }"
+    >
+      {{ errorMsg }}
+    </div>
     <app-button
       btnText="START GAME"
       (click)="handleStartGameBtnClick(appStateEnum.GameScreen)"
-      class="settings_btn"
     ></app-button>
   </div>
 
@@ -107,28 +123,33 @@
     "
     class="game_screen"
   >
-    <div class="game_screen_cont" [ngClass]="{game_screen_cont_fade: appState === appStateEnum.WinnerScreen}">
+    <div
+      class="game_screen_cont"
+      [ngClass]="{
+        game_screen_cont_fade: appState === appStateEnum.WinnerScreen
+      }"
+    >
       <app-board
-      [boardSize]="boardSize"
-      [playerSymbols]="playerSymbols"
-      [playerColors]="playerColors"
-      (appState)="changeAppState($event)"
-      (winnerFound)="setWinnerPoint($event)"
-    ></app-board>
-    <app-player-score [storePlayers]="storePlayers"></app-player-score>
+        [boardSize]="boardSize"
+        [playerSymbols]="playerSymbols"
+        [playerColors]="playerColors"
+        (appState)="changeAppState($event)"
+        (winnerFound)="setWinnerPoint($event)"
+      ></app-board>
+      <app-player-score [storePlayers]="storePlayers"></app-player-score>
     </div>
     <div *ngIf="appState === appStateEnum.WinnerScreen" class="winner_screen">
       <span class="winner_screen_text">THE WINNER IS</span>
-      <span class="winner_screen_name">{{winnerName}}</span>
+      <span class="winner_screen_name">{{ winnerName }}</span>
       <div class="winner_screen_btn">
         <app-button
-        btnText="RESTART"
-        (click)="handleRestartBtnClick()"
-      ></app-button>
-      <app-button
-      btnText="QUIT GAME"
-      (click)="handleQuitBtnClick()"
-    ></app-button>
+          btnText="RESTART"
+          (click)="handleRestartBtnClick()"
+        ></app-button>
+        <app-button
+          btnText="QUIT GAME"
+          (click)="handleQuitBtnClick()"
+        ></app-button>
       </div>
     </div>
   </div>
