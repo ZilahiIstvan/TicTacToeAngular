@@ -22,6 +22,7 @@ export class AppComponent {
   // read-only variables
   readonly symbolPool: string[] = ['X', 'O', 'A', 'B']; // stores the possible symbols
   readonly maxPlayerCnt: number = 6; // determines the maximum number of players
+  readonly defaultBoardSize: number = 5; // determines the default size of the board
   readonly defaultPlayers: Player[] = [
     {
       id: 0,
@@ -49,7 +50,7 @@ export class AppComponent {
 
   playerSymbols: string[] = []; // stores the players' symbols
   playerColors: string[] = []; // stores the players' colors
-  boardSize: number = 5; // determines the default size of the board
+  boardSize: number = this.defaultBoardSize; // determines the default size of the board
   winnerName: string = ''; // stores the winner's name
   errorMsg: string = 'defaultText'; // stores the error message
 
@@ -189,8 +190,9 @@ export class AppComponent {
       item.setBoardAttributes(BoardStateEnum.ResetBoard)
     );
     this.appState = AppStateEnum.StartScreen;
-    this.storePlayers = this.defaultPlayers; // reset stored players
+    this.storePlayers = this.defaultPlayers.map((obj) => ({ ...obj })); // reset stored players
     this.playerSymbols = []; // reset stored symbols
     this.playerColors = []; // reset stored colors
+    this.boardSize = this.defaultBoardSize; // reset the size of the board
   }
 }
