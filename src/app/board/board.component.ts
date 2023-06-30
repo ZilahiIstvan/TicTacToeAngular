@@ -28,7 +28,7 @@ export class BoardComponent {
   @Input()
   playerColors: string[] = [];
 
-  // output
+  // outputs
   @Output() appState = new EventEmitter<AppStateEnum>();
   @Output() winnerFound = new EventEmitter<[string, string]>();
 
