@@ -83,18 +83,24 @@ export class BoardComponent {
     for (let i = 0; i < this.boardSize; i++) {
       for (let j = 0; j < this.boardSize; j++) {
         if (boardState === BoardStateEnum.LockBoard) {
+          // lock clicked cell (can't be clickable again)
           this.board[i][j].clicked = true;
         } else if (boardState === BoardStateEnum.ResetBoard) {
+          // user pressed the restart button
           this.board[i][j].clicked = false;
           this.board[i][j].symbol = '';
           this.board[i][j].cellBgColor = '';
-          //console.log(this.board);
           this.cellComps.forEach((cell) => {
             cell.cellClicked = false;
             cell.cellText = '';
             cell.cellBgColor = '';
           });
+          this.nextPlayer = {
+            symbol: this.playerSymbols[0],
+            color: this.playerColors[0],
+          }; // reset the next player's symbol
         } else if (boardState === BoardStateEnum.ResetPrevStep) {
+          // reset the previously highlighted cell's background
           this.board[i][j].cellBgColor = '';
           this.cellComps.forEach((cell) => {
             cell.cellBgColor = '';
@@ -186,7 +192,7 @@ export class BoardComponent {
 
     if (this.checkWinner(cellId)) {
       // winner found
-      this.winnerFound.emit([symbol, color]); // mrk winner based on it's symbol and color
+      this.winnerFound.emit([symbol, color]); // mark winner based on it's symbol and color
     }
 
     return [symbol, color];
