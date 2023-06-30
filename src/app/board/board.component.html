@@ -1,7 +1,9 @@
 <div class="game_board">
   <div class="game_board_next_player_cont">
     <div class="game_board_next_player">NEXT PLAYER:</div>
-    <p [ngStyle]="setNextPlayerStyle()">{{nextPlayer.symbol}}</p>
+    <p [ngStyle]="setNextPlayerStyle()" class="game_board_next_player_symbol">
+      {{ nextPlayer.symbol }}
+    </p>
   </div>
 
   <div class="game_board_cont" [ngStyle]="setGameBoardStyle()">

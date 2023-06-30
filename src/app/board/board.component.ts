@@ -148,6 +148,7 @@ export class BoardComponent {
         if (symbolCnt === this.winnerSymbolsCnt) {
           this.appState.emit(AppStateEnum.WinnerScreen); // winner found
           this.setBoardAttributes(BoardStateEnum.LockBoard);
+          this.playerIdx = 0; // reset player index
           return true;
         }
         symbolCnt = 0; // reset counter
