@@ -1,4 +1,4 @@
-import { Component, ViewChildren, QueryList, ViewChild } from '@angular/core';
+import { Component, ViewChildren, QueryList } from '@angular/core';
 import { loginData } from './login-data';
 import { AppStateEnum, BoardStateEnum } from './app-state-enums';
 import { LoginFieldComponent } from './login-field/login-field.component';
