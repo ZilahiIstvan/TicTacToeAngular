@@ -1,3 +1,5 @@
+@import "../../assets/styles/colorVariables.scss";
+
 .leaderboard {
   &_cont {
     display: flex;
@@ -13,12 +15,37 @@
   }
 
   &_grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-    align-items: center;
-    row-gap: 1rem;
-    column-gap: 1.5rem;
+    &_cont {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &_header,
+    &_rows {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-items: center;
+      align-items: center;
+      column-gap: 1rem;
+      background-color: $cellBgColor;
+    }
+
+    &_header {
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      height: 2rem;
+    }
+
+    &_rows {
+      height: 3rem;
+      width: 30rem;
+
+      &_cont {
+        .leaderboard_grid_rows:nth-child(2n + 2) {
+          background-color: $leaderboardSecondColor;
+        }
+      }
+    }
   }
 
   &_player {
