@@ -8,6 +8,7 @@ import { Player } from '../interfaces';
   styleUrls: ['./new-player.component.scss'],
 })
 export class NewPlayerComponent {
+  // inputs
   @Input() addNewItemText: string = '';
   @Input() addNewItemSrc: string = '';
   @Input() symbolPool: string[] = [];

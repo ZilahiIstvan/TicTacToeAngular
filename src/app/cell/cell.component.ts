@@ -6,6 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./cell.component.scss'],
 })
 export class CellComponent {
+  // inputs
   @Input() cellText: string = ''; // text of the cell
   @Input() cellIdx: number = -1; // index of the cell
   @Input() cellColor: string = ''; // text color of the cell
@@ -15,6 +16,7 @@ export class CellComponent {
     return ['', ''];
   }; // input func for updating the player index
 
+  // used to determine the text and color of a clicked cell
   handleCellClick() {
     if (!this.cellClicked) {
       this.cellClicked = true;
@@ -22,8 +24,8 @@ export class CellComponent {
     }
   }
 
-  // STYLES
-
+  // styles
+  // used to set the font and background colors of the cell
   public setBoardCellStyle() {
     return {
       color: `${this.cellColor}`,

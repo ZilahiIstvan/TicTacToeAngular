@@ -19,7 +19,7 @@ export class AppComponent {
   @ViewChildren(BoardComponent) boardComp: QueryList<BoardComponent> =
     new QueryList<BoardComponent>();
 
-  // read only variables
+  // read-only variables
   readonly symbolPool: string[] = ['X', 'O', 'A', 'B']; // stores the possible symbols
   readonly maxPlayerCnt: number = 6; // determines the maximum number of players
   readonly defaultPlayers: Player[] = [

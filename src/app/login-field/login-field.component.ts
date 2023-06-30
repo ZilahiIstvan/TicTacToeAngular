@@ -15,15 +15,9 @@ export class LoginFieldComponent {
   // outputs
   @Output() userEventLogin = new EventEmitter<string>();
 
-  // variables
+  // changeable variables
   loginFieldState: boolean = false; // false: blured, true: focused
   loginFieldValue: string = ''; // store field value string
-
-  public setLoginFieldWidth() {
-    return {
-      width: `${this.loginFieldWidth}rem`,
-    };
-  }
 
   // used to set the focused state
   public loginFieldFocused = (): void => {
@@ -44,5 +38,13 @@ export class LoginFieldComponent {
   public handleUserEventLogin(event: any): void {
     this.loginFieldValue = event.target.value;
     this.userEventLogin.emit(this.loginFieldValue);
+  }
+
+  // styles
+  // used to set the width of the login-field
+  public setLoginFieldWidth() {
+    return {
+      width: `${this.loginFieldWidth}rem`,
+    };
   }
 }

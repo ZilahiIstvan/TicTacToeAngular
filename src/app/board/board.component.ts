@@ -17,8 +17,10 @@ import { Board } from '../interfaces';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent {
+  // references for the components
   @ViewChildren(CellComponent)
   cellComps: QueryList<CellComponent> = new QueryList<CellComponent>(); // query all instances of the loginFieldComponent components
+
   // inputs
   @Input() boardSize: number = 0;
   @Input()
@@ -26,6 +28,7 @@ export class BoardComponent {
   @Input()
   playerColors: string[] = [];
 
+  // output
   @Output() appState = new EventEmitter<AppStateEnum>();
   @Output() winnerFound = new EventEmitter<[string, string]>();
 
@@ -44,7 +47,7 @@ export class BoardComponent {
     [1, -1],
   ]; // stores the inverse search directions
 
-  // changeable vairables
+  // changeable variables
   public board: Board[][] = []; // create empty array
   private playerIdx: number = 0; // player symbol index
   boardStateEnum = BoardStateEnum; // define enum
@@ -189,8 +192,7 @@ export class BoardComponent {
     return [symbol, color];
   };
 
-  // STYLES
-
+  // styles
   // used to set the grid template dynamically based on the board size
   public setGameBoardStyle() {
     return {
@@ -200,6 +202,7 @@ export class BoardComponent {
     };
   }
 
+  // used to set the color of the next player symbol
   public setNextPlayerStyle() {
     console.log(this.nextPlayer.color);
     return {
