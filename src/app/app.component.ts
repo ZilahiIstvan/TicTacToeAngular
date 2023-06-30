@@ -12,20 +12,17 @@ import { Player } from './interfaces';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  // references for the components
   @ViewChildren(LoginFieldComponent)
   loginFieldComp: QueryList<LoginFieldComponent> =
     new QueryList<LoginFieldComponent>(); // query all instances of the loginFieldComponent components
   @ViewChildren(BoardComponent) boardComp: QueryList<BoardComponent> =
     new QueryList<BoardComponent>();
 
-  appStateEnum = AppStateEnum; // define enum
-  loginData: { user: string; pass: string } = loginData; // store login data (username, password)
-  appState: AppStateEnum = AppStateEnum.StartScreen; // init app state
-  userProvidedUsername: string = ''; // stores the username from the user
-  userProvidedPassword: string = ''; // stores the paswword from the user
-  symbolPool: string[] = ['X', 'O', 'A', 'B']; // stores the possible symbols
-  maxPlayerCnt: number = 6; // determines the maximum number of players
-  storePlayers: Player[] = [
+  // read only variables
+  readonly symbolPool: string[] = ['X', 'O', 'A', 'B']; // stores the possible symbols
+  readonly maxPlayerCnt: number = 6; // determines the maximum number of players
+  readonly defaultPlayers: Player[] = [
     {
       id: 0,
       playerName: '',
@@ -40,7 +37,15 @@ export class AppComponent {
       playerColor: player2DefColor,
       playerScore: 0,
     },
-  ]; // stores the players' data
+  ]; // determine the default players
+
+  // changeable variables
+  appStateEnum = AppStateEnum; // define enum
+  loginData: { user: string; pass: string } = loginData; // store login data (username, password)
+  appState: AppStateEnum = AppStateEnum.StartScreen; // init app state
+  userProvidedUsername: string = ''; // stores the username from the user
+  userProvidedPassword: string = ''; // stores the paswword from the user
+  storePlayers: Player[] = this.defaultPlayers.map((obj) => ({ ...obj })); // stores the players' data without reference
 
   playerSymbols: string[] = []; // stores the players' symbols
   playerColors: string[] = []; // stores the players' colors
@@ -184,5 +189,8 @@ export class AppComponent {
       item.setBoardAttributes(BoardStateEnum.ResetBoard)
     );
     this.appState = AppStateEnum.StartScreen;
+    this.storePlayers = this.defaultPlayers; // reset stored players
+    this.playerSymbols = []; // reset stored symbols
+    this.playerColors = []; // reset stored colors
   }
 }

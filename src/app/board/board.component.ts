@@ -29,22 +29,24 @@ export class BoardComponent {
   @Output() appState = new EventEmitter<AppStateEnum>();
   @Output() winnerFound = new EventEmitter<[string, string]>();
 
-  // vairables
-  public board: Board[][] = []; // create empty array
-  private playerIdx: number = 0; // player symbol index
-  private winnerSymbolsCnt: number = 5; // number of the winner symbols
-  private directions: number[][] = [
+  // readonly variables
+  private readonly winnerSymbolsCnt: number = 5; // number of the winner symbols
+  private readonly directions: number[][] = [
     [0, -1],
     [1, 0],
     [-1, -1],
     [-1, 1],
-  ];
-  private inverseDirections: number[][] = [
+  ]; // stores the search directions
+  private readonly inverseDirections: number[][] = [
     [0, 1],
     [-1, 0],
     [1, 1],
     [1, -1],
-  ];
+  ]; // stores the inverse search directions
+
+  // changeable vairables
+  public board: Board[][] = []; // create empty array
+  private playerIdx: number = 0; // player symbol index
   boardStateEnum = BoardStateEnum; // define enum
   nextPlayer: { symbol: string; color: string } = { symbol: '', color: '' };
 
